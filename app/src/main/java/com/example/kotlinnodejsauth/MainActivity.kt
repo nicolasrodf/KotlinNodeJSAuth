@@ -1,5 +1,6 @@
 package com.example.kotlinnodejsauth
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -94,8 +95,11 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { message ->
-                if(message.contains("encrypted_password")) //login method in API should return User object(JSON) so should contains "encrypted_password" field
+                if(message.contains("encrypted_password")) { //login method in API should return User object(JSON) so should contains "encrypted_password" field
                     Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show();
+                    val intent = Intent(this, UserListActivity::class.java)
+                    startActivity(intent)
+                }
                 else
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             })
